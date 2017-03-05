@@ -1,0 +1,31 @@
+---
+title: "Leaflet"
+author: "Adam Yao Guang Chen"
+date: "5 March 2017"
+output:
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is a interactive map of top 10 cities in population in Australia based on 2016 Census.
+
+```{r, echo=FALSE}
+library(leaflet)
+
+AU_cities <- data.frame(
+    name =  c("Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide", "Newcastle", "Gold coast", "Canberra", "Wollongong", "Sunshine coast"),
+    pop = c(4920970, 4529496, 2308720, 2039193, 1316779, 434454, 624918, 424666, 292388, 302122),
+    Lat = c(-33.87, -37.81, -27.46, -31.96, -34.93, -32.92, -28.07, -35.31, -34.42, -25.88),
+    lng = c(151.21, 144.96, 153.02, 115.84, 138.6, 151.75, 153.44, 149.13, 150.87, 152.56)
+    )
+
+AU_cities %>% leaflet() %>% addTiles() %>% 
+    addCircles(weight = 2, radius = sqrt(AU_cities$pop)*50)
+
+
+```
